@@ -15,9 +15,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
-#xPathContent:hover {
-  z-index: 0;
-}
+
 #xPathContent p {
   z-index: inherit;
 }

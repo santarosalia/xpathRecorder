@@ -29,7 +29,7 @@ this.document.addEventListener("click", (e) => {
   xPathP.textContent = xPath;
   this.top.document.getElementById("xPathContent").appendChild(frameP);
   this.top.document.getElementById("xPathContent").appendChild(xPathP);
-  const result = chrome.runtime.sendMessage({
+  const result = chrome.tabs.sendMessage({
     type: "info",
     frame: frameXpathList,
     xPath: xPath,
