@@ -15,7 +15,7 @@ recordButton.addEventListener("click", async () => {
 // current page
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let d = document.createElement("p");
+  d.textContent = request.xPath;
   xPath.appendChild(d);
-  xPath.lastChild.textContent = request.xPath;
-  console.log(request.frame);
+  console.log("ok");
 });

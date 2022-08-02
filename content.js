@@ -29,7 +29,8 @@ this.document.addEventListener("click", (e) => {
   xPathP.textContent = xPath;
   this.top.document.getElementById("xPathContent").appendChild(frameP);
   this.top.document.getElementById("xPathContent").appendChild(xPathP);
-  const result = chrome.tabs.sendMessage({
+
+  const result = chrome.runtime.sendMessage({
     type: "info",
     frame: frameXpathList,
     xPath: xPath,
@@ -86,9 +87,18 @@ const getXPath = (el) => {
         ? `[${nbOfPreviousSiblings + 1}]`
         : "";
     isFlexibleXpath = /^-?\d+$/.test(nodeElem.id.slice(-1));
+    //queryselector 숫자로 시작하는 아이디
+    let nodeCount;
 
     if (nodeElem.id && !isFlexibleXpath) {
-      var nodeCount = document.querySelectorAll(`#${nodeElem.id}`);
+      if (/\d/.exec(nodeElem.id) != null) {
+        nodeCount = document.querySelectorAll(
+          `#\\3${/\d/.exec(nodeElem.id)} ${nodeElem.id.split(/\d/)[1]}`
+        );
+      } else {
+        nodeCount = document.querySelectorAll(`#${nodeElem.id}`);
+      }
+
       if (nodeCount.length == 1) {
         parts.push(`/*[@id="${nodeElem.id}"]`); //부모노드 중 id가 있을 경우 id를 담아준 후 노드검색을 멈춤
         break;
