@@ -1,3 +1,9 @@
+let xPathContentDiv = this.top.document.createElement("div");
+xPathContentDiv.id = "xPathContent";
+if (this.top.document.getElementById("xPathContent") == null) {
+  this.top.document.head.after(xPathContentDiv);
+}
+
 this.document.addEventListener("click", (e) => {
   let frameList = [];
   this.frameElement ? frameList.push(this.frameElement) : null;
@@ -14,7 +20,15 @@ this.document.addEventListener("click", (e) => {
   let frameXpathList = frameList.map((frame) => getXPath(frame));
 
   const xPath = getXPath(e.target);
+  let frameP = this.top.document.createElement("p");
 
+  frameXpathList.reverse().map((item, i) => {
+    frameP.textContent += i + 1 + "번째 프레임 : " + item;
+  });
+  let xPathP = this.top.document.createElement("p");
+  xPathP.textContent = xPath;
+  this.top.document.getElementById("xPathContent").appendChild(frameP);
+  this.top.document.getElementById("xPathContent").appendChild(xPathP);
   const result = chrome.runtime.sendMessage({
     type: "info",
     frame: frameXpathList,

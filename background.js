@@ -10,6 +10,6 @@ chrome.webNavigation.onCompleted.addListener((e) => {
   });
 });
 
-// chrome.runtime.onMessage.addListener(
-//   async (request, sender, sendResponse) => {}
-// );
+chrome.runtime.onMessage.addListener(
+  async (request, sender, sendResponse) => {}
+);
