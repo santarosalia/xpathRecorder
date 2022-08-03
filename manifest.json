@@ -36,7 +36,13 @@
       "all_frames": true,
       "matches": ["*://*/*"],
       "css": ["content.css"],
-      "js": ["content.js", "popup.js"]
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": ["*://*/*"],
+      "resources": ["html2canvas.js"]
     }
   ]
 }

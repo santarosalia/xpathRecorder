@@ -1,8 +1,8 @@
 // chrome.storage.sync.set({ active: false });
 
-chrome.storage.sync.get().then((val) => {
-  console.log(val.active);
-});
+// chrome.storage.sync.get().then((val) => {
+//   console.log(val.active);
+// });
 let xPathContentDiv = this.top.document.createElement("div");
 xPathContentDiv.id = "xPathContent";
 if (this.top.document.getElementById("xPathContent") == null) {
@@ -10,6 +10,7 @@ if (this.top.document.getElementById("xPathContent") == null) {
 }
 
 this.document.addEventListener("click", (e) => {
+  makeDivToImageFile(e.target);
   let frameList = [];
   this.frameElement ? frameList.push(this.frameElement) : null;
   let parent = this.parent.frameElement ? this.parent : null;
@@ -118,3 +119,43 @@ const getXPath = (el) => {
   }
   return parts.length ? "/" + parts.reverse().join("/") : "";
 };
+
+async function makeDivToImageFile(captureDiv) {
+  const src = chrome.runtime.getURL("html2canvas.js");
+  await import(src);
+
+  html2canvas(captureDiv, {
+    allowTaint: true,
+
+    useCORS: true,
+
+    /* 아래 3 속성이 canvas의 크기를 정해준다. */
+
+    width: captureDiv.offsetWidth,
+
+    height: captureDiv.offsetHeight,
+
+    scale: 1,
+  })
+    .then(function (canvas) {
+      const imageURL = canvas.toDataURL("image/jpeg");
+      console.log(imageURL);
+      // saveAs(imageURL, "new file.jpg");
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+}
+// function saveAs(url, fileName) {
+//   const link = document.createElement("a");
+
+//   link.href = url;
+
+//   link.download = fileName;
+
+//   document.body.appendChild(link);
+
+//   link.click();
+
+//   document.body.removeChild(link);
+// }
