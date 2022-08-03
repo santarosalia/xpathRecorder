@@ -1,3 +1,8 @@
+// chrome.storage.sync.set({ active: false });
+
+chrome.storage.sync.get().then((val) => {
+  console.log(val.active);
+});
 let xPathContentDiv = this.top.document.createElement("div");
 xPathContentDiv.id = "xPathContent";
 if (this.top.document.getElementById("xPathContent") == null) {
