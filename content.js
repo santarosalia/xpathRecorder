@@ -10,6 +10,7 @@ if (this.top.document.getElementById("xPathContent") == null) {
 }
 
 this.document.addEventListener("click", (e) => {
+  console.dir(e);
   makeDivToImageFile(e.target);
   let frameList = [];
   this.frameElement ? frameList.push(this.frameElement) : null;
@@ -159,3 +160,32 @@ async function makeDivToImageFile(captureDiv) {
 
 //   document.body.removeChild(link);
 // }
+chrome.runtime.onMessage.addListener((msg, sender) => {
+  if (msg == "toggle") {
+    toggle();
+  }
+});
+
+let iframe = document.createElement("iframe");
+iframe.style.background = "green";
+iframe.style.height = "100%";
+iframe.style.width = "400px";
+iframe.style.position = "fixed";
+iframe.style.top = "0px";
+iframe.style.right = "0px";
+iframe.style.zIndex = "9000000000000000000";
+iframe.style.display = "none";
+iframe.frameBorder = "none";
+iframe.src = chrome.runtime.getURL("popup.html");
+iframe.id = "popup";
+if (top.document.getElementById("popup") == null) {
+  top.document.head.after(iframe);
+}
+
+const toggle = () => {
+  if (iframe.style.display == "none") {
+    iframe.style.display = "block";
+  } else {
+    iframe.style.display = "none";
+  }
+};

@@ -6,3 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onMessage.addListener(
   async (request, sender, sendResponse) => {}
 );
+
+chrome.action.onClicked.addListener((tab) => {
+  chrome.tabs.sendMessage(tab.id, "toggle");
+});

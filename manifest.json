@@ -16,7 +16,6 @@
     "tabs"
   ],
   "action": {
-    "default_popup": "popup.html",
     "default_icon": {
       "16": "/images/get_started16.png",
       "32": "/images/get_started32.png",
@@ -42,7 +41,7 @@
   "web_accessible_resources": [
     {
       "matches": ["*://*/*"],
-      "resources": ["html2canvas.js"]
+      "resources": ["html2canvas.js", "popup.html"]
     }
   ]
 }
